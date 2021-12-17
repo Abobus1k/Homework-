@@ -8,7 +8,7 @@ int main() {
 		std::cout << i << ": ";
 		std::cin >> mas[i];
 	}
-	int curr = mas[0], res = 0, x, y;
+	int curr = mas[0], res = 0,x,y;
 	for (int i = 1; i < N; ++i)
 	{
 		if ((mas[i] + curr) >= res)
@@ -19,5 +19,5 @@ int main() {
 			curr = mas[i];
 		}
 	}
-	std::cout << x << " " << y;
+	std::cout << x << " "<< y;
 }
