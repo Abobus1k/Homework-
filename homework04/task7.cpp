@@ -11,15 +11,14 @@ int main() {
     double points_in = 0.;
     for (int i = 0; i < n; i++)
     {
-        double x = smthrnd(), y = smthrnd();
+        double x = smthrnd();
+        double y = smthrnd();
         points_in += (x * x + y * y) <= 1. ? 1. : 0.;
         if ((x * x + y * y) <= 1){
-            points_in +=1;
-            }
-            else
-            {
-             points_in +=0;   
-            }
+         points_in +=1;   
+        }
+        else
+            points_in +=0;
     }
     std::cout << (points_in / (double)n) << std::endl;
 }
