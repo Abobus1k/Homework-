@@ -3,15 +3,22 @@
 
 int main()
 {
-    double s = 0., a = 1.;
-    int n = 0;
+    int n;
     std::cout << "Enter n: ";
     std::cin >> n;
-    for (int i = 0; i < n; ++i)
-    {
-        s += a;
-        a = sin(a);
-    }
-    std::cout << "Answer: " << s << "\n";
 
+    double s = 0., a, x;
+
+    std::cout << "Enter x: ";
+    std::cin >> x;
+
+    a = x;
+
+    for (int i = 0; i < n; i++)
+    {
+        a = sin(a);
+        s += a;
+    }
+    std::cout << s << std::endl;
+    return 0;
 }
