@@ -33,6 +33,11 @@ int main()
 		for (int i = 0; i < n; ++i)
 		{
 			int x = length_x(matrix[i][j]);
+			for (int i=0; i<n; ++i)
+			{
+				delete[] matrix[i];
+			}
+			delete[] matrix;
 
 			std::cout << matrix[i][j];
 			for (int i = 0; i <= max - x; ++i) std::cout << " ";
