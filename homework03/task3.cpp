@@ -1,27 +1,23 @@
 #include <iostream>
 
-
 int main()
 {
-    std::cout << "Enter Height/2 of rhomb: ";
-    int num, i;
+    std::cout << "Enter Height/2\n ";
+    int num;
     std::cin >> num;
 
-    for (i = 1; i <= num; ++i)
+    for (int i = 1; i <= num; i++)
     {
         for (int j = 0; j < num - i; j++) std::cout << " ";
-        for (int k = 0; k < i; k++) std::cout << "* ";
+        for (int k = 0; k < i * 2 - 1; k++) std::cout << "*";
         std::cout << std::endl;
-
     }
 
-    i -= 2;
-    for (; i >= 0; --i)
+    for (int i=num-2; i >= 0; i--)
     {
-        for (int j = 0; j < num - i; ++j) std::cout << " ";
-        for (int k = 0; k < i; ++k) std::cout << "* ";
+        for (int j = 0; j < num - i; j++) std::cout << " ";
+        for (int k = 0; k < i * 2 - 1; k++) std::cout << "*";
         std::cout << std::endl;
-
     }
     return 0;
 }
