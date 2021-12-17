@@ -1,24 +1,17 @@
 #include <iostream>
-#include <cmath>
 int main() {
-    double R, r, x, y, nr;
-    std::cout << "R: ";
-    std::cin >> R;
-    std::cout << "r: ";
-    std::cin >> r;
-    std::cout << "coordinates: \n";
-    std::cout << "x: ";
-    std::cin >> x;
-    std::cout << "y: ";
-    std::cin >> y;
-    nr = sqrt((x * x) + (y * y));
-    if (nr > r and nr < R)
-    {
-        std::cout << "ïîïàäàåò â êîëüöî\n";
-    }
-    else {
-        std::cout << "íå ïîïàäàåò â êîëüöî\n";
-    }
-    return 0;
-
+	setlocale(LC_ALL, "russian");
+	float x, y, R, r;
+	std::cout << "Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ Ñ…, Ñƒ";
+	std::cin >> x >> y;
+	std::cout << "Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ R, r";
+	std::cin >> R >> r;
+	int a = x * x + y * y;
+	if ((a < R*R) && (a > r*r))
+	{
+		std::cout << "in";
+	}
+	else {
+		std::cout << "out";
+	}
 }
