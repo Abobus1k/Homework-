@@ -3,18 +3,19 @@
 int main()
 {
     int space, rows;
-    std::cout << "Enter number of rows: ";
+    std::cout << "Enter number of rows\n";
     std::cin >> rows;
-    for (int i = 1, k = 0; i <= rows; ++i, k = 0)
+    for (int i = 1; i <= rows; ++i)
     {
         for (space = 1; space <= rows - i; ++space)
         {
             std::cout << " ";
         }
-        while (k != 2 * i - 1)
+        int j = 0;
+        while (j != 2 * i - 1)
         {
             std::cout << "*";
-            ++k;
+            ++j;
 
         } std::cout << std::endl;
 
