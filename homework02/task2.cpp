@@ -1,25 +1,27 @@
 #include <iostream>
 #include <cmath>
-
 int main() {
-    double x1, x2, a, b, c, D;
-    std::cout << "a\n";
-    std::cin >> a;
-    std::cout << "b\n";
-    std::cin >> b;
-    std::cout << "c\n";
-    std::cin >> c;
-
-    D = (b * b) - (4 * a * c);
-    if (D > 0)
-    {
-        x1 = (-b - sqrt(D)) / 2 * a;
-        x2 = (-b + sqrt(D)) / 2 * a;
-        std::cout << "x1 =  " << x1 << ", x2 = " << x2 << "\n";
-    }
-    else {
-        std::cout << "There is no answers \n";
-    }
-
-    return 0;
+	setlocale(LC_ALL, "russian");
+	double a, b, c;
+	std::cout << "a,b,c:\n";
+	std::cin >> a >> b >> c;
+	if(a==0) std::cout << "Уравнение имеет 1 корень: "<<-c/b;
+	else
+	{
+		double d = b * b - 4 * a * c;
+		if (d < 0)
+		{
+			std::cout << "Нет корней";
+		}
+		else if(d==0)
+		{
+			std::cout << "Уравнение имеет 1 корень: " << -b / 2 / a;
+		}
+		else 
+		{
+			double x1 = (-b + sqrt(d)) / 2 / a;
+			double x2 = (-b - sqrt(d)) / 2 / a;
+			std::cout << "Уравнение имеет 2 корня: " << x1 << " и " << x2;
+		}
+	}
 }
