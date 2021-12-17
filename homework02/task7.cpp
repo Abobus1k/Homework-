@@ -10,7 +10,7 @@ int circleFunc(int n) {
 }
 
 
-void task7() {
+void f() {
     int R, n = 1;
     std::cout << "Enter R: ";
     std::cin >> R;
@@ -20,4 +20,8 @@ void task7() {
         n += circleFunc(i);
     }
     std::cout << n << std::endl;
+}
+int main() {
+    f();
+    return 0;
 }
