@@ -1,29 +1,24 @@
-#include <iostream>
-#include <cmath>
-
-
-bool first_quarter(double x, double y) {
-    return (x >= 0 and y >= 0 and y <= -2 * (x - 1));
-}
-
-bool second_quarter(double x, double y) {
-    return (x <= 0 and y >= 0 and y <= 2 * (x + 1));
-}
-
-bool third_quarter(double x, double y) {
-    return (x <= 0 and y <= 0 and y >= -sqrt(1 - pow((x + 1), 2)));
-}
-
-bool fourth_quarter(double x, double y) {
-    return (x >= 0 and y <= 0 and y >= -sqrt(1 - pow((x - 1), 2)));
-}
-
+#include<iostream>
 int main() {
-    double x, y;
-    std::cout << "enter x, y: ";
-    std::cin >> x >> y;
-    if (first_quarter(x, y) or second_quarter(x, y) or third_quarter(x, y) or fourth_quarter(x, y))
-        std::cout << "popal\n";
-    else
-        std::cout << "ne popal\n";
+	double x, y;
+	std::cin >> x >> y;
+	bool b = false;
+	if (((x + 1) * (x + 1) + y * y < 1) && (y <= 0))
+	{
+		b = true;
+	}
+	if (((x - 1) * (x - 1) + y * y < 1) && (y <= 0))
+	{
+		b = true;
+	}
+	if ((y <= x / 2 + 2) && (x <= 0) && (x >= -1) && (y >= 0))
+	{
+		b = true;
+	}
+	if ((y <= -2 * x + 2) && (x <= 1) && (x >= 0) && (y >= 0))
+	{
+		b = true;
+	}
+	if (b) std::cout << "popal";
+	if (!b) std::cout << "ne popal";
 }
