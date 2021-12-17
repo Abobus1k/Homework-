@@ -1,27 +1,20 @@
-int circleFunc(int n) {
-    int r_2 = 0;
-
-    for (int d = 1; d <= n; d += 2)
-    {
-        if (n % d == 0)
-            r_2 += d % 4 == 1 ? 1 : -1;
-    }
-    return r_2 * 4;
-}
-
-
-void f() {
-    int R, n = 1;
-    std::cout << "Enter R: ";
-    std::cin >> R;
-
-    for (int i = 1; i <= R * R; i++)
-    {
-        n += circleFunc(i);
-    }
-    std::cout << n << std::endl;
-}
+#include<cmath>
+#include <iostream>
 int main() {
-    f();
-    return 0;
+	setlocale(LC_ALL, "russian");
+	int R;
+	std::cin >> R;
+	int sum = 0;
+	for (int y = -(int)R; y <= (int)R; y +=1)
+	{
+		for (int x = -(int)R; x <= (int)R; x +=1)
+		{
+			if ((x * x + y * y) <= R * R)
+			{
+				++sum;
+			}
+		}
+	}
+
+	std::cout << sum;
 }
