@@ -8,16 +8,17 @@ int main() {
 		std::cout << i << ": ";
 		std::cin >> mas[i];
 	}
-	int curr = mas[0], res = 0,x,y;
-	for (int i = 1; i < N; ++i)
+	int max = mas[0] + mas[1];
+	int k = 1;
+	for (int i = 2; i < N; ++i)
 	{
-		if ((mas[i] + curr) >= res)
+		if ((mas[i - 1] + mas[i]) > max)
 		{
-			res = mas[i] + curr;
-			x = curr;
-			y = mas[i];
-			curr = mas[i];
+			max = mas[i - 1] + mas[i];
+			k = i;
+
 		}
 	}
-	std::cout << x << " "<< y;
+	std::cout << mas[k - 1] << " " << mas[k];
+
 }
