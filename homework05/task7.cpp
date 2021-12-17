@@ -4,20 +4,20 @@ int main() {
     int n;
     std::cout << "Enter n:";
     std::cin >> n;
-    int i = 1, c = 1;
-    while ((n - i) > 0)
+    int i =1,c=1;
+    while((n-i)>0)
     {
-
-        for (int j = 1; j <= i; ++j)
+        
+        for(int j=1;j<=i;++j)
         {
 
-            if ((n - i) > 0)
+            if((n-i)>0)
             {
                 ++c;
-                n -= i;
+                n-=i;
             }
         }
         ++i;
     }
-    std::cout << c << " " << n;
+    std::cout<<c<<" "<<n;
 }
