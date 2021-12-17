@@ -1,6 +1,4 @@
 #include <iostream>
-
-
 int main()
 {
     std::cout << "Enter Height/2\n ";
