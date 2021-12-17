@@ -13,7 +13,6 @@ int main() {
     {
         double x = smthrnd();
         double y = smthrnd();
-        points_in += (x * x + y * y) <= 1. ? 1. : 0.;
         if ((x * x + y * y) <= 1){
          points_in +=1;   
         }
