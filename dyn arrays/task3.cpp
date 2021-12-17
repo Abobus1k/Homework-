@@ -27,6 +27,11 @@ void snakeArray(int** A, int n)
 		}
 		std::cout << std::endl;
 	}
+	for (int i = 0; i < n; ++i)
+		{
+			delete[] A[i];
+		}
+	delete [A]
 }
 int main()
 {
