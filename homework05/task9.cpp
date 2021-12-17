@@ -12,4 +12,5 @@ int main()
         sum += mas[i];
     }
     std::cout << n * (n + 1) / 2 - sum;
+    delete[] mas;
 }
