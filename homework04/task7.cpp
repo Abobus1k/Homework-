@@ -13,6 +13,13 @@ int main() {
     {
         double x = smthrnd(), y = smthrnd();
         points_in += (x * x + y * y) <= 1. ? 1. : 0.;
+        if ((x * x + y * y) <= 1){
+            points_in +=1;
+            }
+            else
+            {
+             points_in +=0;   
+            }
     }
     std::cout << (points_in / (double)n) << std::endl;
 }
