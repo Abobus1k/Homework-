@@ -4,7 +4,7 @@ int main() {
 	setlocale(LC_ALL, "russian");
 	double R;
 	std::cin >> R;
-	double sum = 0;
+	long double sum = 0;
 	for (double y = -(double)R; y <= (double)R; y += 1)
 	{
 		for (double x = -(double)R; x <= (double)R; x += 1)
