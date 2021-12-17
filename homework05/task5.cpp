@@ -20,5 +20,6 @@ int main() {
 		}
 	}
 	std::cout << mas[k - 1] << " " << mas[k];
-
+	delete[] mas;
 }
+
