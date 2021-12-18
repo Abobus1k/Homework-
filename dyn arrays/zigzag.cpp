@@ -1,12 +1,10 @@
 #include <iostream>
-#include <iomanip>
 
-using namespace std;
 
 int main()
 {
     int rows, cols, j, i, counter = 1, k;
-    cin >> rows >> cols;
+    std::cin >> rows >> cols;
     int** matrix = new int* [rows];
     for (int i = 0; i < rows; ++i)
     {
@@ -34,10 +32,10 @@ int main()
         for (j = 0; j < cols; j++)
         {
             
-            cout << matrix[i][j] << "\t";
+            std::cout << matrix[i][j] << "\t";
             
         }
-        cout << endl;
+        std::cout << std::endl;
     }
     for (int i = 0; i < rows; ++i)
     {
