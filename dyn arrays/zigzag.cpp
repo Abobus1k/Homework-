@@ -3,7 +3,13 @@
 
 int main()
 {
-    int rows, cols, j, i, counter = 1, k;
+    
+    int rows;
+    int cols;
+    int i;
+    int j;
+    int k;
+    int counter = 1;
     std::cin >> rows >> cols;
     int** matrix = new int* [rows];
     for (int i = 0; i < rows; ++i)
@@ -31,9 +37,9 @@ int main()
     {
         for (j = 0; j < cols; j++)
         {
-            
+
             std::cout << matrix[i][j] << "\t";
-            
+
         }
         std::cout << std::endl;
     }
