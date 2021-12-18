@@ -16,7 +16,7 @@ int main() {
             if (d != mas[i-1] - mas[i-2])
             {
                 d = 0;
-                
+                break;
             }
     }
     else
