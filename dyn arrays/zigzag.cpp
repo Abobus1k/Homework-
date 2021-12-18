@@ -3,7 +3,7 @@
 
 int main()
 {
-    
+
     int rows;
     int cols;
     int i;
@@ -19,10 +19,12 @@ int main()
 
     for (k = 0; k < rows + cols - 1; k++)
     {
+        if (k%2==1)
         for (i = 0; i < rows; i++)
         {
             for (j = 0; j < cols; j++)
             {
+                
                 if (i + j == k)
                 {
                     matrix[i][j] = counter;
@@ -30,6 +32,18 @@ int main()
                 }
             }
         }
+        else
+            for (j = 0; j < cols; j++)
+            {
+                for (i = 0; i < rows; i++)
+                {
+                    if (i + j == k)
+                    {
+                        matrix[i][j] = counter;
+                        counter++;
+                    }
+                }
+            }
     }
 
 
