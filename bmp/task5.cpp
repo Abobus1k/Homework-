@@ -2,14 +2,13 @@ void Mediana(int n = 3, const char* in = "kidsnoise.bmp", const char* out = "Mki
 {
 	RgbImg img = readRgbImg(in);
 	int half = n / 2;
+	int* mas_r = new int[n * n];
+	int* mas_g = new int[n * n];
+	int* mas_b = new int[n * n];
 	for (size_t row = half; row < img.height - half; ++row)
 	{
 		for (size_t col = half; col < img.width - half; ++col)
 		{
-
-			int* mas_r = new int[n * n];
-			int* mas_g = new int[n * n];
-			int* mas_b = new int[n * n];
 			for (size_t i = 0; i < n; ++i)
 				for (size_t j = 0; j < n; ++j)
 				{
