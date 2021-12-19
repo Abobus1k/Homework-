@@ -22,7 +22,12 @@ int main(int argc, const char* argv[])
 			{
 				std::cin >> ker[i][j];
 			}
+
 		writeRgbImg("rezkosts.bmp", convolution(img, krn_sz, ker));
+		for (int i=0; i< krn_sz; ++i)
+		{
+			delete[] ker[i];
+		}
 		deleteRgbImg(img);
 		delete[] ker;
 	}
