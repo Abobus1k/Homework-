@@ -1,37 +1,33 @@
-std::string reverseString(std::string str) {
-    int n = str.length();
-    std::string reverse = "";
-    for (int i = n - 1; i >= 0; --i)
-    {
-        reverse += str.at(i);
-    }
-    return reverse;
+#include <iostream>
+#include <string>
+
+void swap(char& a, char& b)
+{
+    char temp;
+    temp = b;
+    b = a;
+    a = temp;
 }
 
 std::string reverse_words(std::string str)
 {
-    std::string s = "", word = "";
     int x = str.length();
-    bool w = false;
+    int pr = 0;
+    int curr = 0;
 
-    for (int i = 0; i < x; ++i)
+    while (curr < x)
     {
-        int b = str.at(i);
-        if (b != ' ') {
-            word += str.at(i);
-            w = true;
-        }
-        else {
-            if (w) {
-                w = false;
-                s += reverseString(word);
-                word = "";
-            }
-            s += str.at(i);
-        }
+        while (str[pr] == ' ')
+            pr++;
+
+        while (curr != x - 1 && str[curr + 1] != ' ')
+            curr++;
+
+        for (int i = pr; i < pr + (curr - pr + 1)/2; i++)
+            swap(str[i], str[curr - (i - pr)]);
+
+        pr = ++curr;
     }
-    if (w) {
-        s += reverseString(word);
-    }
-    return s;
+
+    return str;
 }
