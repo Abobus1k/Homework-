@@ -1,4 +1,4 @@
-void rotation(int rotate = 180, const char* inpic = "rainbow.bmp", const char* outpic = "wobniar1.bmp")
+void rotation(int rotate = 180, const char* inpic = "rainbow.bmp", const char* outpic = "wobniar.bmp")
 {
 	RgbImg in = readRgbImg(inpic);
 
