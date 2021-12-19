@@ -24,12 +24,11 @@ void Mediana(int n = 3, const char* in = "kidsnoise.bmp", const char* out = "Mki
 			img.pixels[row][col].Red = mas_r[n * n / 2 + 1];
 			img.pixels[row][col].Green = mas_g[n * n / 2 + 1];
 			img.pixels[row][col].Blue = mas_b[n * n / 2 + 1];
-
-			delete[] mas_b;
-			delete[] mas_r;
-			delete[] mas_g;
 		}
 	}
+	delete[] mas_b;
+	delete[] mas_r;
+	delete[] mas_g;
 	writeRgbImg(out, img);
 	deleteRgbImg(img);
 }
