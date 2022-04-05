@@ -26,7 +26,6 @@ int addFlat(DataBase& DB)
 	return DB.count;
 }
 void printDB(const DataBase& DB) {
-	mySort(DB.data, DB.count, sortByPrice);
 
 	for (int i = 0; i < DB.count; ++i)
 		std::cout << DB.data[i] << std::endl;
