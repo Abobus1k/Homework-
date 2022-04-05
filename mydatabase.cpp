@@ -14,8 +14,12 @@ int addFlat(DataBase& DB)
 	DB.data = tmp;
 
 	std::cin >> DB.data[DB.count];
-
-	DB.data[DB.count].id = DB.count;
+	if (DB.count!=0) {
+		DB.data[DB.count].id = DB.data[DB.count - 1].id + 1;
+	}
+	else {
+		DB.data[DB.count].id = 0;
+	}
 
 	++DB.count;
 
