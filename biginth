@@ -1,0 +1,55 @@
+#pragma once
+#include<deque>
+#include<iostream>
+class BigInteger
+{
+public:
+	const int base = 2;
+
+	BigInteger();
+	BigInteger(int X);
+	BigInteger(const std::string(&X));
+	BigInteger(const BigInteger& X);
+	BigInteger(BigInteger&& X);
+
+	BigInteger& operator=(const BigInteger& X);
+	BigInteger& operator=(BigInteger&& X);
+
+	const bool operator>(const BigInteger& X);
+	const bool operator<(const BigInteger& X);
+	const bool operator==(const BigInteger& X);
+
+	BigInteger operator+(const BigInteger& X);
+	BigInteger operator-(const BigInteger& X);
+	BigInteger operator/(const BigInteger& X);
+	BigInteger operator*(const BigInteger& X) const ;
+	BigInteger operator*(int& x) const;
+
+	BigInteger operator+() const;
+	BigInteger operator-() const;
+
+	friend const BigInteger& operator++(BigInteger& X);
+	friend const BigInteger operator++(BigInteger& X,int);
+
+	friend const BigInteger& operator--(BigInteger& X);
+	friend const BigInteger operator--(BigInteger& X,int);
+
+	BigInteger& operator<<(const int& x);
+	BigInteger& operator>>(const int& x);
+	BigInteger& operator&(const BigInteger& X);
+	BigInteger& operator|(const BigInteger& X);
+	BigInteger& operator^(const BigInteger& X);
+	BigInteger& operator~();
+
+	friend void print(const BigInteger& X);
+
+	~BigInteger()
+	{
+		data.clear();
+		sign = false;
+	}
+
+private:
+	std::deque<bool> data;
+	bool sign = false;//false = +; true = -;
+};
