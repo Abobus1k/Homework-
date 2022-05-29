@@ -1,0 +1,425 @@
+#include"biginteger.h"
+
+int pow(const int& x, const int& y)
+{
+	int res = 1;
+	for (int i = 0; i < y; ++i) res *= x;
+	return res;
+}
+
+void print(const BigInteger& X)
+{
+	if (X.sign) std::cout << '-';
+	for (int i = 0; i < X.data.size(); ++i)
+	{
+		std::cout << X.data[i];
+	}
+	std::cout << std::endl;
+}
+
+BigInteger::BigInteger()
+{
+	data = {};
+}
+BigInteger::BigInteger(int X)
+{
+	data = {};
+	if (X < 0)
+	{
+		sign = 1;
+		X = -X;
+	}
+	while (X)
+	{
+		data.push_front(X % base);
+		X /= 2;
+	}
+	//print(*this);
+}
+BigInteger::BigInteger(const std::string(&X))
+{
+	data = { };
+	int x=0,i=0;
+	if (X[0] == '-')
+	{
+		sign = 1;
+		++i;
+	}
+	for (; i < X.length(); ++i)
+	{
+		x *= 10;
+		x += X[i] - 48;
+	}
+	while (x)
+	{
+		data.push_front(x % 2);
+		x /= 2;
+	}
+	print(*this);
+}
+BigInteger::BigInteger(const BigInteger& X)
+{
+	data = X.data;
+	sign = X.sign;
+	//print(*this);
+}
+BigInteger::BigInteger(BigInteger&& X)
+{
+	data = std::move(X.data);
+	sign = std::move(X.sign);
+}
+
+BigInteger& BigInteger::operator=(const BigInteger& X)
+{
+	data = X.data;
+	sign = X.sign;
+	return *this;
+}
+BigInteger& BigInteger::operator=(BigInteger&& X)
+{
+	data = std::move(X.data);
+	sign = std::move(X.sign);
+	return *this;
+}
+
+const bool BigInteger::operator>(const BigInteger& X)
+{
+	if (data.size() == X.data.size())
+	{
+		for (int i = 0; i < data.size(); ++i)
+		{
+			if (data[i] > X.data[i]) return 1;
+			if (data[i] < X.data[i]) return 0;
+		}
+		return 0;
+	}
+	else return (data.size() > X.data.size());
+	
+}
+const bool BigInteger::operator<(const BigInteger& X)
+{
+	if (data.size() == X.data.size())
+	{
+		for (int i = 0; i < data.size(); ++i)
+		{
+			if (data[i] < X.data[i]) return 1;
+			if (data[i] > X.data[i]) return 0;
+		}
+		return 0;
+	}
+	else return (data.size() < X.data.size());
+}
+const bool BigInteger::operator==(const BigInteger& X)
+{
+	if (data.size() == X.data.size())
+	{
+		for (int i = 0; i < data.size(); ++i)
+		{
+			if (data[i] != X.data[i]) return 0;
+		}
+		return 1;
+	}
+	return 0;
+}
+
+BigInteger BigInteger::operator+(const BigInteger& X)
+{
+	int dif = data.size() - X.data.size();
+	int tmp = 0;
+	BigInteger res{};
+	if (sign == X.sign)
+	{
+		res.sign = sign;
+		for (int i = data.size() - 1; (i >= 0) && (i - dif >= 0); --i)
+		{
+			res.data.push_front((data[i] + X.data[i-dif] + tmp) % 2);
+			if ((data[i] + X.data[i - dif] + tmp) >= 2) tmp = 1;
+			else tmp = 0;
+		}
+		if(dif>0)
+			for (int i = dif - 1; i >= 0; --i)
+			{
+				res.data.push_front((data[i] + tmp) % 2);
+				if ((data[i] + tmp) >= 2) tmp = 1;
+				else tmp = 0;
+			}
+		if(dif<0)
+			for(int i=-dif-1;i>=0;--i)
+			{
+				res.data.push_front((X.data[i] + tmp) % 2);
+				if ((X.data[i] + tmp) >= 2) tmp = 1;
+				else tmp = 0;
+			}
+		if (tmp) res.data.push_front(tmp);
+
+	}
+	else
+	{
+		
+		if (*this > X)
+		{
+			BigInteger first(*this);
+			res.sign = sign;
+			for (int i = data.size() - 1; (i-dif >= 0); --i)
+			{
+				if ((!first.data[i]) && (X.data[i-dif]))
+				{
+					int j = i - 1;
+					while (!first.data[j]) --j;
+					first.data[j] = 0;
+					for (int k = j + 1; k <= i; ++k) first.data[k] = 1;
+					res.data.push_front(true);
+
+				}
+				else res.data.push_front(first.data[i] - X.data[i-dif]);
+			}
+			bool flag = 0;
+			for (int i = dif - 1; i >= 0; --i) res.data.push_front(first.data[i]);
+			while (!flag)
+			{
+				int i = 0;
+				if (res.data[i] == true) flag = 1;
+				else res.data.pop_front();
+			}
+		}
+		else if (*this < X)
+		{
+			BigInteger first(X);
+			res.sign = X.sign;
+			for (int i = X.data.size() - 1; (i+dif>=0); --i)
+			{
+				if ((!first.data[i]) && (data[i+dif]))
+				{
+					int j = i - 1;
+					while (!first.data[j]) --j;
+					first.data[j] = 0;
+					for (int k = j + 1; k <= i; ++k) first.data[k] = 1;
+					res.data.push_front(true);
+
+				}
+				else res.data.push_front( data[i+dif]- first.data[i]);
+			}
+			bool flag = 0,_dif=-dif;
+			for (int i = 0; i < _dif; ++i)
+			{
+				if (first.data[i]) flag = 1;
+				if (!flag)
+				{
+					++dif;
+					first.data.pop_front();
+				}
+			}
+			for (int i = -dif-1; i >=0; --i) res.data.push_front(first.data[i]);
+
+		}
+		if (!(*this == X))
+		{
+			int i = 0;
+			while (!res.data[i]) res.data.pop_back();
+		}
+	}
+	//print(res);
+	return res;
+	
+}
+BigInteger BigInteger::operator-(const BigInteger& X)
+{
+	BigInteger _X{ X };
+	_X.sign = !X.sign;
+	return(*this + _X);
+}
+BigInteger BigInteger::operator*(const BigInteger& X) const
+{
+	BigInteger res{};
+	BigInteger first(*this);
+	for (int i = X.data.size() - 1; i >= 0; --i)
+	{
+		if (X.data[i])
+		{
+			res = res + first;
+		}
+		first.data.push_back(false);
+	}
+	res.sign = sign - X.sign;
+	return res;
+}
+BigInteger BigInteger::operator*(int& x) const
+{
+	BigInteger X(x);
+	return (*this * X);
+}
+BigInteger BigInteger::operator/(const BigInteger& X)
+{
+	BigInteger res = {};
+	BigInteger tmpFirst(*this);
+	BigInteger tmp = {};
+	if (data.size() < X.data.size()) return res;
+	if (data.size() == X.data.size()) return !(*this < X);
+	if (data.size() > X.data.size())
+	{
+		int a=pow(2,data.size());
+		int i = 0;
+		while (tmp < X)
+		{
+			tmp.data.push_back(tmpFirst.data[i]);
+			++i;
+			a /= 2;
+		}
+		for (; i < data.size(); ++i)
+		{
+			if (!(tmp < X))
+			{
+				tmpFirst = tmpFirst - X * a;
+				tmp = tmp - X;
+				res = res * 2;
+				res = res + 1;
+			}
+			else res = res * 2;
+			if (tmpFirst.data.size() == 0)
+			{
+				res = res * a;
+				return res;
+			}
+			tmp.data.push_back(data[i]);
+			a /= 2;
+		}
+		if (!(tmp < X))
+		{
+			tmpFirst = tmpFirst - X * a;
+			tmp = tmp - X;
+			res = res * 2;
+			res = res + 1;
+		}
+		else res = res * 2;
+		if (tmpFirst.data.size() == 0)
+		{
+			res = res * a;
+			return res;
+		}
+		a /= 2;
+	}
+	return res;
+}
+
+BigInteger BigInteger::operator+() const
+{
+	return *this;
+}
+BigInteger BigInteger::operator-() const
+{
+	BigInteger res{};
+	res.data = data;
+	res.sign = !sign;
+	return res;
+}
+
+const BigInteger& operator++(BigInteger& X)
+{
+	X = X + 1;
+	return X;
+}
+const BigInteger operator++(BigInteger & X, int) {
+	BigInteger y(X);
+	X = X + 1;
+	return y;
+}
+
+const BigInteger& operator--(BigInteger& X) {
+	X = X - 1;
+	return X;
+}
+const BigInteger operator--(BigInteger& X, int) {
+	BigInteger y(X);
+	X=X-1;
+	return y;
+}
+
+BigInteger& BigInteger::operator<<(const int &x)
+{
+	BigInteger res(*this);
+	res = res * pow(2, x);
+	return res;
+}
+BigInteger& BigInteger::operator>>(const int& x)
+{
+	BigInteger res(*this);
+	for (int i = 0; i < x; ++i) res.data.pop_back();
+	return res;
+}
+BigInteger& BigInteger::operator&(const BigInteger& X)
+{
+	BigInteger res{};
+	const int dif = data.size() - X.data.size();
+	for (int i = data.size(); (i >= 0) && (i - dif >= 0); --i)
+	{
+		if ((data[i]) && (X.data[i-dif])) res.data.push_front(1);
+		else res.data.push_front(0);
+	}
+	int flag = 0,i=0;
+	while (!flag)
+	{
+		if (res.data[i]) flag = 1;
+		else res.data.pop_front();
+	}
+	return res;
+}
+BigInteger& BigInteger::operator|(const BigInteger& X)
+{
+	BigInteger res{};
+	const int dif = data.size() - X.data.size();
+	for (int i = data.size(); (i >= 0) && (i - dif >= 0); --i)
+	{
+		if ((data[i]) || (X.data[i - dif])) res.data.push_front(1);
+		else res.data.push_front(0);
+	}
+	if (dif > 0)
+	{
+		for (int i = dif - 1; i >= 0; --i)
+			if (data[i]) res.data.push_back(1);
+			else res.data.push_back(0);
+	}
+	if(dif<0)
+		for (int i = -dif - 1; i >= 0; --i)
+			if (X.data[i]) res.data.push_back(1);
+			else res.data.push_back(0);
+	int flag = 0, i = 0;
+	while (!flag)
+	{
+		if (res.data[i]) flag = 1;
+		else res.data.pop_front();
+	}
+	return res;
+}
+BigInteger& BigInteger::operator^(const BigInteger& X)
+{
+	BigInteger res{};
+	const int dif = data.size() - X.data.size();
+	for (int i = data.size(); (i >= 0) && (i - dif >= 0); --i)
+	{
+		if (((data[i])&& !(X.data[i - dif]))||(!(data[i]) && (X.data[i - dif]))) res.data.push_front(1);
+		else res.data.push_front(0);
+	}
+	if (dif > 0)
+	{
+		for (int i = dif - 1; i >= 0; --i)
+			if (data[i]) res.data.push_back(1);
+			else res.data.push_back(0);
+	}
+	if (dif < 0)
+		for (int i = -dif - 1; i >= 0; --i)
+			if (X.data[i]) res.data.push_back(1);
+			else res.data.push_back(0);
+	int flag = 0, i = 0;
+	while (!flag)
+	{
+		if (res.data[i]) flag = 1;
+		else res.data.pop_front();
+	}
+	return res;
+}
+BigInteger& BigInteger::operator~()
+{
+	BigInteger res(*this);
+	for (int i = 0; i < res.data.size(); ++i) res.data[i] = !res.data[i];
+	return res;
+}
