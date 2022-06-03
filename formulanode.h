@@ -24,8 +24,8 @@ public:
 	bool _calc() const { return num; }
 	bool calcNF() const { return num; }
 	std::string str() const {
-		if (num < 0)
-			return std::string("(") + std::to_string(num) + std::string(")");
+				if (num < 0)
+					return std::string("(") + std::to_string(num) + std::string(")");
 		return std::to_string(num);
 	}
 };
@@ -112,7 +112,7 @@ class ShefferNode : public BinNode {
 public:
 	ShefferNode(FormulaNode* L, FormulaNode* R) : BinNode(L, R) {}
 	bool calc()const { return !(left->calc() & right->calc()); }
-	bool _calc()const { return !(left->_calc() && right->_calc()); }
+	bool _calc()const { return !(left->_calc() && right->_calc());}
 	bool calcNF()const { return !(left->calcNF() && right->calcNF()); }
 	std::string str() const {
 		return left->str() + " | " + right->str();
@@ -143,13 +143,13 @@ public:
 };
 class ParametrValue {
 	std::string ch;
-	bool val = 0;
+	bool val=0;
 public:
 	ParametrValue(std::string c, double value) : ch(c), val(value) {}
 	bool getValue() const { return val; }
 	std::string getStr() const { return ch; }
 	bool makeTrue() { val = 1; return val; }
-	bool makeFalse() { val = 0; return val; }
+	bool makeFalse() { val = 0; return val;}
 	bool operator<(const ParametrValue& X)const { return ch < X.ch; }
 	bool operator==(const ParametrValue& X) const { return ch == X.ch; }
 };
@@ -159,7 +159,7 @@ namespace global {
 }
 //------------------------------------------------------
 class ParamNode : public FormulaNode {
-	std::string x;
+	std::string x;	
 public:
 	ParamNode(std::string s) : x(s) { }
 	bool calc() const {
@@ -176,7 +176,7 @@ public:
 			return 0;
 		}
 	}
-	bool _calc() const
+	bool _calc() const 
 	{
 
 		auto pos = global::Workspace.find(ParametrValue(x, 0));
@@ -250,6 +250,24 @@ public:
 //	}
 //};
 
+class UnarNode : public FormulaNode {
+protected:
+	FormulaNode* next;
+public:
+	UnarNode(FormulaNode* node) : next(node) {}
+	~UnarNode() { if (next) delete next; next = nullptr; }
+};
+class InvNode : public UnarNode {
+public:
+	InvNode(FormulaNode* node) : UnarNode(node) {}
+	bool calc()const { return !next->calc(); }
+	bool _calc() const { return !next->_calc(); }
+	bool calcNF() const { return !next->calcNF(); }
+	std::string str() const {
+		return " - (" + next->str() + ")";
+	}
+};
+
 //------------------------------------------------------
 class AssignmentNode : public FormulaNode {
 	ParamNode* left;
@@ -282,3 +300,5 @@ public:
 		right = left = nullptr;
 	}
 };
+//------------------------------------------------------
+//------------------------------------------------------
