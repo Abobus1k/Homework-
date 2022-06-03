@@ -14,7 +14,7 @@
 //}
 class Formula {
 	FormulaNode* root;
-
+	
 	//FormulaNode* _Postfix2Tree_(const char*);
 	FormulaNode* Postfix2Tree_(const char*);
 	void Infix2Postfix_(const char*, char*);
@@ -38,11 +38,11 @@ public:
 		char* str_infix = new char[Len];
 		char* str_postfix = new char[Len];
 
-
+		
 		InfixFilter_(str, str_infix);
-		Infix2Postfix_(str_infix, str_postfix);
-		root = Postfix2Tree_(str_postfix);
-		calc();
+			Infix2Postfix_(str_infix, str_postfix);
+			root = Postfix2Tree_(str_postfix);
+			calc();
 		delete[] str_infix;
 		delete[] str_postfix;
 	}
@@ -51,6 +51,7 @@ public:
 		Len = (Len < 10) ? 20 : 2 * Len;
 		char* str_infix = new char[Len];
 		char* str_postfix = new char[Len];
+
 		try {
 			InfixFilter_(str, str_infix);
 			Infix2Postfix_(str_infix, str_postfix);
