@@ -1,4 +1,5 @@
 #pragma once
+
 template <typename Element>
 class AVLTree {
 	struct Node {
@@ -88,7 +89,7 @@ public:
 		if (toLeft) p->left = now; else p->right = now;
 		now->parent = p;
 
-		// ?????????????? ???????
+		// âîññòàíîâëåíèå áàëàíñà
 		do {
 			if (now->parent->left == now) now->parent->balance -= 1;
 			else now->parent->balance += 1;
@@ -108,11 +109,11 @@ public:
 	}
 
 	class iterator {
-
+		
 	public:
 		Node* now;
 		iterator(Node* p = nullptr) : now(p) {}
-		Element& operator*() { return now->data; }
+		Element& operator*(){ return now->data; }
 		bool operator==(const iterator& p)const { return now == p.now; }
 		bool operator!=(const iterator& p)const { return now != p.now; }
 		iterator& operator++() { if (now) now = now->next(); return *this; }
@@ -158,7 +159,7 @@ public:
 		}
 		return iterator(now);
 	}
-	void erase(iterator); // ???????? ???? ? ??????
+	void erase(iterator); // Óäàëåíèå óçëà â äåðåâå
 };
 
 template <typename Element>
@@ -221,7 +222,7 @@ void AVLTree<Element>::erase(typename AVLTree<Element>::iterator pos) {
 	delete toDelete;
 	--count;
 
-	// ?????????????? ????????????
+	// âîññòàíîâëåíèå áàëàíñèðîâêè
 	while (notBalanced) {
 		switch (notBalanced->balance) {
 		case 2:
