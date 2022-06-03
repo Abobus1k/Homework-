@@ -4,17 +4,17 @@ class BooleanExpression
 {
 public:
 	Formula* F;
-	int max;//количество переменных
-	int count;//количество формул
+	int max;//РєРѕР»РёС‡РµСЃС‚РІРѕ РїРµСЂРµРјРµРЅРЅС‹С…
+	int count;//РєРѕР»РёС‡РµСЃС‚РІРѕ С„РѕСЂРјСѓР»
 
 	friend BooleanExpression begin(std::ifstream& in);
 	BooleanExpression(int& counter, char** (&x), int(&countX));
 	BooleanExpression(const BooleanExpression& x);
 
-	bool _calc(const int& i);
+	bool _calc(const int &i);
 	void truthTabel();
-	void cnf(std::ofstream& out);
-	void dnf(std::ofstream& out);
+	void cnf(std::ofstream &out);
+	void dnf(std::ofstream &out);
 	void zheg(std::ofstream& out);
 
 
