@@ -1,7 +1,7 @@
 #include"boolexpr.h"
 #include<cmath>
 #include<vector>
-bool inFormula(const std::string(&f), const std::string(&x))
+bool inFormula(const std::string(&f),const std::string(&x))
 {
 	int flag = 0, j = 0;
 	int i = 0;
@@ -22,7 +22,7 @@ bool inFormula(const std::string(&f), const std::string(&x))
 		if (f[i] == x[0]) flag = 1;
 
 	}
-	if ((j == x.length() - 1) && (x[j] == f[f.length() - 1])) return 1;
+	if ((j == x.length() - 1)&&(x[j]==f[f.length()-1])) return 1;
 	return 0;
 }
 
@@ -44,11 +44,11 @@ BooleanExpression::BooleanExpression(const BooleanExpression& x)
 	for (int i = 0; i < count; ++i)F[i] = x.F[i];
 }
 
-std::string toBin(int x, const int& max)
+std::string toBin(int x,const int &max)
 {
 	int i = max;
-	std::string res = std::string(i, '0');
-	int mult = 1;
+	std::string res = std::string(i,'0');
+	int mult=1;
 	int resInt = 0;
 	while (x)
 	{
@@ -58,7 +58,7 @@ std::string toBin(int x, const int& max)
 	}//10
 	while (resInt)
 	{
-		res[--i] = resInt % 10 + '0';
+		res[--i] = resInt % 10+'0';
 		resInt /= 10;
 	}
 	return res;
@@ -67,7 +67,7 @@ void BooleanExpression::truthTabel()
 {
 	for (int I = 0; I < count; ++I)
 	{
-		if (max == 1) std::cout << F[I].str() << " = " << F[I].calc() << std::endl;
+		if (max == 1) std::cout << F[I].str()<<" = "<<F[I].calc()<<std::endl;
 		else
 		{
 			auto iter = global::Workspace.begin();
@@ -95,7 +95,7 @@ void BooleanExpression::truthTabel()
 						iter1.now->data.makeTrue();
 					else iter1.now->data.makeFalse();
 
-
+	
 					++iter1;
 
 				}
@@ -108,13 +108,13 @@ void BooleanExpression::truthTabel()
 	}
 }
 
-bool BooleanExpression::_calc(const int& i)
+bool BooleanExpression::_calc(const int &i)
 {
 	F[i]._calc();
 	return 0;
 }
 
-void BooleanExpression::cnf(std::ofstream& out)
+void BooleanExpression::cnf(std::ofstream &out)
 {
 	for (int I = 0; I < count; ++I)
 	{
@@ -141,15 +141,15 @@ void BooleanExpression::cnf(std::ofstream& out)
 				iter1++;
 
 			}
-
+			
 
 
 			bool result = F[I]._calc();
-
+			
 
 			if (!result)
 			{
-				if (f) out << " & (";
+				if(f) out << " & (";
 				else
 				{
 					out << "(";
@@ -159,11 +159,11 @@ void BooleanExpression::cnf(std::ofstream& out)
 				while (iter2 != global::Workspace.end())
 				{
 					if (iter2.now->data.getValue()) out << "~" << iter2.now->data.getStr();
-					else out << iter2.now->data.getStr();
+					else out<< iter2.now->data.getStr();
 
 					iter2++;
 
-					if (iter2 != global::Workspace.end()) out << " v ";
+					if(iter2 != global::Workspace.end()) out << " v ";
 
 
 				}
@@ -210,7 +210,7 @@ void BooleanExpression::dnf(std::ofstream& out)
 
 			if (result)
 			{
-				if (f) out << " v (";
+				if(f) out << " v (";
 				else
 				{
 					out << "(";
@@ -263,7 +263,7 @@ void BooleanExpression::zheg(std::ofstream& out)
 				iter1++;
 
 			}
-
+			
 			// 1 0 0 1
 			//  1 0 1
 			//   1 1 
@@ -276,7 +276,7 @@ void BooleanExpression::zheg(std::ofstream& out)
 		int c = 1;
 		while (first.size() > 1)
 		{
-
+			
 			for (int j = 0; j < first.size() - 1; ++j)
 			{
 				second[j] = (first[j] + first[j + 1]) % 2;
@@ -314,7 +314,7 @@ void BooleanExpression::zheg(std::ofstream& out)
 					if (iter3.now->data.getValue())
 					{
 						if (f) std::cout << " + ";
-						out << iter3.now->data.getStr();
+						out<< iter3.now->data.getStr();
 						flag = 1;
 						f = 1;
 					}
@@ -322,8 +322,8 @@ void BooleanExpression::zheg(std::ofstream& out)
 				}
 				if (!flag)
 				{
-
-					if (f) out << " + 1";
+					
+					if(f) out << " + 1";
 					else out << "1";
 					f = 1;
 				}
@@ -342,15 +342,15 @@ bool BooleanExpression::isFull(std::ofstream& out)
 	bool x4 = isLinear();
 	bool x5 = isMonotonous();
 	bool result = (x1 && x2 && x3 && x4 && x5);
-	std::cout << x1 << x2 << x3 << x4 << x5;
+	std::cout << x1 << x2 <<x3 << x4 << x5;
 	//out <<" "<<result;
-	out << ((result) ? "yes" : "no");
+	out<< ((result)?"yes" : "no");
 	std::cout << ((result) ? "yes" : "no");
 	return result;
 }
 bool BooleanExpression::isSavingZero()
 {
-	bool result = 0;
+	bool result=0;
 	for (int i = 0; i < count; ++i)
 	{
 		auto iter1 = global::Workspace.begin();
@@ -411,7 +411,7 @@ bool BooleanExpression::isSelfSecond()
 			str2 = toBin(maxBin - i - 1, max);
 
 
-			//1 ñòðîêà
+			//1 ÑÑ‚Ñ€Ð¾ÐºÐ°
 			auto iter1 = global::Workspace.begin();
 			int j = 0;
 
@@ -429,7 +429,7 @@ bool BooleanExpression::isSelfSecond()
 			bool result1 = F[I]._calc();
 
 
-			//2 ñòðîêà
+			//2 ÑÑ‚Ñ€Ð¾ÐºÐ°
 			auto iter2 = global::Workspace.begin();
 			j = 0;
 
